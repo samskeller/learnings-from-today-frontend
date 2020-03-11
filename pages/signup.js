@@ -1,52 +1,12 @@
 import React, { useState, useCallback } from 'react'
 import axios from 'axios'
-// import logo from './logo.svg'
-import './App.css'
-
-function SubmitLearningButton() {
-  const onClick = useCallback(() => {
-    const body = {
-      learning: 'This is a test',
-      date: '2019-01-01'
-    }
-    axios.post('http://localhost:3000/learnings/', body, {
-      headers: {
-        cookie: 'test;'
-      },
-      withCredentials: true
-    })
-  }, [])
-
-  return (
-    <button
-      onClick={onClick}
-    >
-      Submit
-    </button>
-  )
-}
-
-function LearningTextArea() {
-  return (
-    <textarea/>
-  )
-}
-
-function NewLearning() {
-  return (
-    <>
-      <LearningTextArea/>
-      <SubmitLearningButton/>
-    </>
-  )
-}
 
 const initialState = {
   username: '',
   password: ''
 }
 
-function LogIn() {
+export default function SignUp() {
   const [formState, setFormState] = useState(initialState)
   const submit = useCallback(async () => {
     const body = {
@@ -54,9 +14,11 @@ function LogIn() {
       password: formState.password
     }
 
-    await axios.post('http://localhost:3000/login/', body, {
+    await axios.post('http://localhost:3000/signup/', body, {
       withCredentials: true
     })
+
+    window.location.href = '/learnings';
   }, [formState.username, formState.password])
 
   const handleUsernameChange = useCallback((event) => {
@@ -80,18 +42,9 @@ function LogIn() {
       <input type="password" classname="password-field" onChange={handlePasswordChange}/>
       <br/>
       <button onClick={submit}>
-        Submit
+        Signup
       </button>
     </>
   )
 }
 
-function App() {
-  return (
-    <div className="App">
-      <LogIn/>
-    </div>
-  )
-}
-
-export default App
